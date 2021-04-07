@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>{% block title %}Title{% endblock %}</title>
+</head>
+<body>
+<div id="content">
+   <div id="header">
+       To jest część stała szablonu głównego
+   </div>
+   <div id="inner-content">
+       {% block content %}
+           To jest blok kodu. W innych szablonach możemy go nadpisać
+       {% endblock %}
+   </div>
+</div>
+</body>

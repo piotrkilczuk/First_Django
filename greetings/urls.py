@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import greet, name_greet
+from .views import greet
 
 urlpatterns = [
     path('', greet),
-    path('<str:name>', name_greet),
+    path('<str:name>', greet),
 ]
