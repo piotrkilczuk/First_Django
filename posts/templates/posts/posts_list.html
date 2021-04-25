@@ -1,0 +1,19 @@
+{% extends "posts/main.html" %}
+
+{% block content %}
+
+{% block title %}Posts list:{% endblock %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="go">
+ </form>
+
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'posts:post_details' post.id %}">{{ post }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

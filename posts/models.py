@@ -12,11 +12,11 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return f" title: {self.title}, content: {self.content[:30]} author: {self.author_id}"
+        return f" T: {self.title}, C: {self.content[:30]} A: {self.author.nick}"
 
 class Author(models.Model):
     nick = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
 
     def __str__(self):
-        return f"nick: {self.nick}, email: {self.email}"
+        return f"N: {self.nick}, E: {self.email}"

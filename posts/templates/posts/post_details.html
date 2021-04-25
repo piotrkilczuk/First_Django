@@ -1,0 +1,12 @@
+{% extends "posts/main.html" %}
+
+{% block content %}
+
+
+<h1>SZCZEGÓŁY: {{post.title}}</h1>
+<a>{{ post.content }}</a>
+<a href="{% url 'posts:author_details' post.author.id %}">{{ post.author }}</a>
+<a>{{ post.created }}</a>
+<a>{{ post.modified }}</a>
+
+{% endblock %}

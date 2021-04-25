@@ -1,0 +1,16 @@
+{% extends "posts/main.html" %}
+
+{% block content %}
+
+<h1>SZCZEGÓŁY: {{ author.nick }}</h1>
+<a>{{ author.nick }}</a>
+<a>{{ author.email }}</a>
+
+<h2>Posty autora: {{ author.nick }}</h2>
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'posts:post_details' post.id %}">{{ post }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
