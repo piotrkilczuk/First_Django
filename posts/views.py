@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 from .models import Post, Author
 from .forms import PostForm, AuthorForm
@@ -9,20 +10,15 @@ def posts_list(request):
     if request.method == "POST":
         form = PostForm(data=request.POST)
         if form.is_valid():
-            # Mam wrażenie, że można uprościć ilość kodu. Podejrzewam, że w formularzu, może za pomocą clean()? 
-            # Przy request.POST wywala błąd o MultiDict
-            Post.objects.create(
-                title=request.POST['title'],
-                content=request.POST['content'],
-                author=Author.objects.get(id=request.POST['author'])
-                )
+            form.save()
 
             messages.add_message(
                 request,
                 messages.SUCCESS,
                 "Utworzono nowy post!")
+            return HttpResponseRedirect("")
     form = PostForm()
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by("created")
     return render(
         request=request,
         template_name="posts/posts_list.html",
@@ -30,7 +26,7 @@ def posts_list(request):
     )
 
 def post_details(request, id):
-    post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)
     return render(
         request=request,
         template_name="posts/post_details.html",
@@ -41,17 +37,15 @@ def authors_list(request):
     if request.method == "POST":
         form = AuthorForm(data=request.POST)
         if form.is_valid():
-            Author.objects.get_or_create(
-                nick=request.POST['nick'],
-                email=request.POST['email']
-                )[0]
+            form.save()
                 
             messages.add_message(
                 request,
                 messages.SUCCESS,
                 "Utworzono nowego autora!")
+            return HttpResponseRedirect("")
     form = AuthorForm()
-    authors = Author.objects.all()
+    authors = Author.objects.all().order_by("nick")
     return render(
         request=request,
         template_name="posts/authors_list.html",
@@ -59,8 +53,8 @@ def authors_list(request):
     )
 
 def author_details(request, id):
-    author = Author.objects.get(id=id)
-    posts = Post.objects.filter(author=author).all()
+    author = get_object_or_404(Author, id=id)
+    posts = Post.objects.filter(author=author)
     return render(
         request=request,
         template_name="posts/author_details.html",
