@@ -38,12 +38,18 @@ def authors_list(request):
         form = AuthorForm(data=request.POST)
         if form.is_valid():
             form.save()
-                
             messages.add_message(
                 request,
                 messages.SUCCESS,
                 "Utworzono nowego autora!")
             return HttpResponseRedirect("")
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Nick or email already exists")
+            return HttpResponseRedirect("")
+
     form = AuthorForm()
     authors = Author.objects.all().order_by("nick")
     return render(
