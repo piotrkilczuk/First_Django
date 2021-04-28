@@ -7,6 +7,7 @@ from .forms import PostForm, AuthorForm
 
 # Create your views here.
 def posts_list(request):
+    form = PostForm()
     if request.method == "POST":
         form = PostForm(data=request.POST)
         if form.is_valid():
@@ -17,7 +18,6 @@ def posts_list(request):
                 messages.SUCCESS,
                 "Utworzono nowy post!")
             return HttpResponseRedirect("")
-    form = PostForm()
     posts = Post.objects.all().order_by("created")
     return render(
         request=request,
@@ -34,6 +34,7 @@ def post_details(request, id):
     )
 
 def authors_list(request):
+    form = AuthorForm()
     if request.method == "POST":
         form = AuthorForm(data=request.POST)
         if form.is_valid():
@@ -43,14 +44,7 @@ def authors_list(request):
                 messages.SUCCESS,
                 "Utworzono nowego autora!")
             return HttpResponseRedirect("")
-        else:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "Nick or email already exists")
-            return HttpResponseRedirect("")
 
-    form = AuthorForm()
     authors = Author.objects.all().order_by("nick")
     return render(
         request=request,

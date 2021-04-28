@@ -1,0 +1,134 @@
+[
+{
+    "model": "maths.math",
+    "pk": 1,
+    "fields": {
+        "operation": "add",
+        "a": 10,
+        "b": 15,
+        "created": "2021-04-15T10:50:55.121Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 2,
+    "fields": {
+        "operation": "sub",
+        "a": 20,
+        "b": 10,
+        "created": "2021-04-15T10:51:03.703Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 3,
+    "fields": {
+        "operation": "div",
+        "a": 100,
+        "b": 25,
+        "created": "2021-04-15T10:51:10.661Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 4,
+    "fields": {
+        "operation": "add",
+        "a": 50,
+        "b": 50,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": 1
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 5,
+    "fields": {
+        "operation": "add",
+        "a": 50,
+        "b": 50,
+        "created": "2021-04-15T11:01:29.067Z",
+        "result": 2
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 6,
+    "fields": {
+        "operation": "add",
+        "a": 500,
+        "b": 520,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 7,
+    "fields": {
+        "operation": "sub",
+        "a": 50,
+        "b": 2,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 8,
+    "fields": {
+        "operation": "add",
+        "a": 544,
+        "b": 502,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 9,
+    "fields": {
+        "operation": "div",
+        "a": 420,
+        "b": 10,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 10,
+    "fields": {
+        "operation": "mul",
+        "a": 99,
+        "b": 12,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 10,
+    "fields": {
+        "operation": "mul",
+        "a": 22,
+        "b": 510,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+},
+{
+    "model": "maths.math",
+    "pk": 11,
+    "fields": {
+        "operation": "div",
+        "a": 120,
+        "b": 24,
+        "created": "2021-04-15T11:00:59.716Z",
+        "result": null
+    }
+}
+]
