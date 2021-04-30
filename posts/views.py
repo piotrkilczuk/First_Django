@@ -17,7 +17,7 @@ def posts_list(request):
                 request,
                 messages.SUCCESS,
                 "Utworzono nowy post!")
-            return HttpResponseRedirect("")
+        return HttpResponseRedirect("")
     posts = Post.objects.all().order_by("created")
     return render(
         request=request,
@@ -43,7 +43,7 @@ def authors_list(request):
                 request,
                 messages.SUCCESS,
                 "Utworzono nowego autora!")
-            return HttpResponseRedirect("")
+        return HttpResponseRedirect("")
 
     authors = Author.objects.all().order_by("nick")
     return render(

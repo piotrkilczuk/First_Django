@@ -15,3 +15,7 @@ class TestUrls(TestCase):
     def test_get_object_or_404(self):
         with self.assertRaises(Resolver404):
             resolve('posts/99999999')
+
+    def test_get_object_or_404(self):
+        with self.assertRaises(Resolver404):
+            resolve('author/99999999')
