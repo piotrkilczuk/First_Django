@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Result
+from .models import Result, Math
 
 class ResultForm(ModelForm):
     class Meta:
@@ -15,3 +15,8 @@ class ResultForm(ModelForm):
                 raise forms.ValidationError("Podaj tylko jedną z wartości")
             elif not (value or error):
                 raise forms.ValidationError("Nie podano żadnej wartości!")
+
+class MathForm(ModelForm):
+    class Meta:
+        model = Math
+        fields = ['a', 'b', 'operation', 'result']

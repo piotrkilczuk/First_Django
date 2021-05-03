@@ -15,6 +15,6 @@
     {% for author in authors %}
         <li><a href="{% url 'posts:author_details' author.id %}">{{ author }}</a></li>
     {% endfor %}
-</ul>
-
+</ul><br>
+<a href="{% url 'posts:posts_list' %}">Powrót do listy</a>
 {% endblock %}

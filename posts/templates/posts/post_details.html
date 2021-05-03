@@ -4,10 +4,10 @@
 
 
 <h1>SZCZEGÓŁY: {{post.title}}</h1>
-<a>{{ post.content }}</a>
+{{ post.content }}
 <a href="{% url 'posts:author_details' post.author.id %}">{{ post.author }}</a>
-<a>{{ post.created }}</a>
-<a>{{ post.modified }}</a>
-
+>{{ post.created }}
+{{ post.modified }}
+<br>
 <a href="{% url 'posts:posts_list' %}">Powrót do listy</a>
 {% endblock %}

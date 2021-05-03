@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from maths.models import Math, Result
-from maths.forms import ResultForm
+from maths.forms import ResultForm, MathForm
 
 def math(request):
    return render(
@@ -66,11 +67,22 @@ def div(request, a, b):
         )
 
 def maths_list(request):
+    form = MathForm()
+    if request.method == 'POST':
+        form = MathForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect("")
+
     maths = Math.objects.all()
+    paginator = Paginator(maths, 5)
+    page_number = request.GET.get('page')
+    maths = paginator.get_page(page_number)
+    
     return render(
         request=request,
         template_name="maths/list.html",
-        context={"maths": maths}
+        context={"maths": maths, "title": "Math list", "form": form}
     )
 
 def math_details(request, id):

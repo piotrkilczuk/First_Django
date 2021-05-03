@@ -1,12 +1,77 @@
 {% extends "maths/main.html" %}
 
-{% block title %}Maths list{% endblock %}
-
 {% block content %}
-   <ul>
-       {% for m in maths %}
-           {# <li><a href="/maths/histories/{{ m.id }}">{{ m }}</a></li> #}
-           <li><a href="{% url 'maths:details' m.id %}">{{ m }}</a></li>
-       {% endfor %}
-   </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Piotr Pawełczak</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'greetings:homepage' %}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'greetings:about_me' %}">About me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'greetings:contact' %}">Contact</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link active" href="{% url 'maths:list' %}">Maths</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'posts:posts_list' %}">Posts</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <table>
+    <thead>
+      <th>ID</th>
+      <th>a</th>
+      <th>b</th>
+      <th>op</th>
+      <th>result</th>
+    </thead>
+    <tbody>
+      {% for m in maths %}
+        <tr>
+          <td style="width:100px;"><a href="{% url 'maths:details' m.id %}">{{ m.id }}</a></td>
+          <td style="width:100px;">{{ m.a }}</td>
+          <td style="width:100px;">{{ m.b }}</td>
+          <td style="width:100px;">{{ m.operation }}</td>
+          <td style="width:100px;">{{ m.result }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+   <div class="pagination">
+   <span class="step-links">
+       {% if maths.has_previous %}
+           <a href="?page=1">« first</a>
+           <a href="?page={{ maths.previous_page_number }}">previous</a>
+       {% endif %}
+
+       <span class="current">
+           Page {{ maths.number }} of {{ maths.paginator.num_pages }}.
+       </span>
+
+       {% if maths.has_next %}
+           <a href="?page={{ maths.next_page_number }}">next</a>
+           <a href="?page={{ maths.paginator.num_pages }}">last »</a>
+       {% endif %}
+   </span>
+   </div>
+   <p>
+   <form method="post">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Add">
+    </form>
+    </p>
 {% endblock %}

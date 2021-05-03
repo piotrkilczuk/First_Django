@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'maths',
     'greetings',
     'posts',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 from .models import Post, Author
 from .forms import PostForm, AuthorForm
@@ -19,10 +20,13 @@ def posts_list(request):
                 "Utworzono nowy post!")
         return HttpResponseRedirect("")
     posts = Post.objects.all().order_by("created")
+    paginator = Paginator(posts, 10)
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)
     return render(
         request=request,
         template_name="posts/posts_list.html",
-        context={"posts": posts, "form": form}
+        context={"posts": posts, "form": form, "title": "Posts list"}
     )
 
 def post_details(request, id):
