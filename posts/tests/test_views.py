@@ -16,9 +16,9 @@ class PostViewsTest(TestCase):
 
     def test_posts_list_GET(self):
         response = self.client.get(self.response_list)
-
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "posts/posts_list.html")
+        self.assertEqual(len(response.context['posts']), 0)
 
         Post.objects.create(title="widok1", content="tekst1", author=self.example_author)
         Post.objects.create(title="widok2", content="tekst2", author=self.example_author2)
@@ -26,17 +26,20 @@ class PostViewsTest(TestCase):
         Post.objects.create(title="widok4", content="tekst4", author=self.example_author2)
 
         response = self.client.get(self.response_list)
-
-        self.assertIn(" T: widok1, C: tekst1 A: Ja", response.content.decode())
-        self.assertIn(" T: widok2, C: tekst2 A: Ja2", response.content.decode())
-        self.assertIn(" T: widok3, C: tekst3 A: Ja", response.content.decode())
-        self.assertIn(" T: widok4, C: tekst4 A: Ja2", response.content.decode())
+        self.assertEqual(len(response.context['posts']), 4)
 
     def test_posts_list_POST(self):
-        data = {"title": "tak", "content": "zawartość", "author": self.example_author}
+        data = {"title": "tak", "content": "zawartość", "author": self.example_author.id}
         response = self.client.post(self.response_list, data=data)
+        self.assertEqual(Post.objects.filter(title='tak').count(), 1)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/posts/")
+
+    def test_posts_list_POST_incorrect(self):
+        data = {"title": "", "content": "zawartość", "author": self.example_author}
+        response = self.client.post(self.response_list, data=data)
+        self.assertEqual(Post.objects.filter(title='tak').count(), 0)
+        self.assertEqual(response.status_code, 200)
 
     def test_post_details(self):
         response = self.client.get(self.response_details)
@@ -51,7 +54,7 @@ class PostViewsTest(TestCase):
         fail_response = self.client.get(self.response_fail_details)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(fail_response.status_code, 404)
-        self.assertIn("<a>teznie</a>", response.content.decode())
+        self.assertIn("teznie", response.content.decode())
 
 class AuthorViewsTest(TestCase):
     def setUp(self):

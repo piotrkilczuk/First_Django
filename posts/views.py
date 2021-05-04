@@ -18,7 +18,7 @@ def posts_list(request):
                 request,
                 messages.SUCCESS,
                 "Utworzono nowy post!")
-        return HttpResponseRedirect("")
+            return HttpResponseRedirect("")
     posts = Post.objects.all().order_by("created")
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
